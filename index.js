@@ -1,45 +1,37 @@
-function determineLevel(xp) {
-    if (xp <= 1000) {
+function getWinsLoses() {
+    while (true) {
+        const wins = parseInt(prompt("Insira sua quantidade de vitórias: "), 10);
+        const loses = parseInt(prompt("Insira sua quantidade de derrotas: "), 10);
+        if (!isNaN(wins) && !isNaN(loses)) {
+            return { wins, loses };
+        }
+        alert("Vitórias e derrotas inválidas, utilize números.");
+    }
+}
+
+function determineRank(wins, loses) {
+    const winRate = wins - loses;
+
+    if (winRate <= 10) {
         return "Ferro";
-    } else if (xp <= 2000) {
+    } else if (winRate <= 20) {
         return "Bronze";
-    } else if (xp <= 5000) {
+    } else if (winRate <= 50) {
         return "Prata";
-    } else if (xp <= 7000) {
+    } else if (winRate <= 80) {
         return "Ouro";
-    } else if (xp <= 8000) {
-        return "Platina";
-    } else if (xp <= 9000) {
-        return "Ascendente";
-    } else if (xp <= 10000) {
-        return "Imortal";
+    } else if (winRate <= 90) {
+        return "Diamante";
+    } else if (winRate <= 100) {
+        return "Lendário";
     } else {
-        return "Radiante";
+        return "Imortal";
     }
 }
 
-function getHeroName() {
-    while (true) {
-        const name = prompt("Insira seu nome: ");
-        if (name) {
-            return name;
-        }
-        alert("Nome inválido, utilize caracteres alfabéticos.");
-    }
-}
+const { wins, loses } = getWinsLoses();
+const rank = determineRank(wins, loses);
+const winRate = wins - loses;
 
-function getHeroXP() {
-    while (true) {
-        const xp = parseInt(prompt("Insira sua quantidade de experiência: "), 10);
-        if (!isNaN(xp)) {
-            return xp;
-        }
-        alert("XP inválida, utilize números.");
-    }
-}
 
-const heroName = getHeroName();
-const heroXP = getHeroXP();
-const heroLevel = determineLevel(heroXP);
-
-console.log(`O Herói de nome ${heroName} está no nível de ${heroLevel}`);
+console.log(`O Herói tem de saldo de ${winRate} está no nível de ${rank}`);
